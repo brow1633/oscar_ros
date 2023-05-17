@@ -40,39 +40,40 @@
     </ros2_control-->
     <ros2_control name="OSCAR" type="system">
         <hardware>
-		    <plugin>oscar_hardware_intf/OscarHardwareIntf</plugin>
+		    <plugin>oscar_hardware_intf/OscarSimulationIntf</plugin>
+            <!-->
             <param name="encoder_cpr">16000</param>
             <param name="micro_run_freq">100</param>
-            <param name="serial_port">/dev/ttyUSB0</param>
+            <param name="serial_port">/dev/ttyUSB0</param><-->
         </hardware>
         <joint name="front_left_wheel_joint">
             <command_interface name="velocity">
-                <param name="min">-2</param>
-                <param name="max">2</param>
-            </command_interface>
-            <state_interface name="position"/>
-            <state_interface name="velocity"/>
-        </joint>
-        <joint name="rear_left_wheel_joint">
-            <command_interface name="velocity">
-                <param name="min">-2</param>
-                <param name="max">2</param>
+                <param name="min">-10</param>
+                <param name="max">10</param>
             </command_interface>
             <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
         <joint name="front_right_wheel_joint">
             <command_interface name="velocity">
-                <param name="min">-2</param>
-                <param name="max">2</param>
+                <param name="min">-10</param>
+                <param name="max">10</param>
+            </command_interface>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="rear_left_wheel_joint">
+            <command_interface name="velocity">
+                <param name="min">-10</param>
+                <param name="max">10</param>
             </command_interface>
             <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
         <joint name="rear_right_wheel_joint">
             <command_interface name="velocity">
-                <param name="min">-2</param>
-                <param name="max">2</param>
+                <param name="min">-10</param>
+                <param name="max">10</param>
             </command_interface>
             <state_interface name="position"/> 
             <state_interface name="velocity"/>

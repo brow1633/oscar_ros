@@ -20,14 +20,14 @@
 	</material>
 
 	<link name="base_link">
-		
+
 	</link>
 
 	<joint name="chassis_joint" type="fixed">
 		<parent link="base_link"/>
 		<child link="chassis"/>
 		<!--This should be just behind rear axle, edge of chassis-->
-		<origin xyz="0 0 .11"/> 
+		<origin xyz="0 0 .11"/>
 	</joint>
 
 	<link name="chassis">
@@ -47,7 +47,7 @@
 				<mesh filename="package://oscar_ros/description/BaseASCII-binary.STL"/>
 			</geometry>
 		</collision>>
-		<xacro:inertial_box mass="0.5" x="0.692" y="0.304" z="0.296">
+		<xacro:inertial_box mass="0.5" x="0.692" y="0.304" z="0.3">
 			<origin xyz="0 0 .11" rpy="0 0 0"/>
 		</xacro:inertial_box>
 	</link>
@@ -62,7 +62,7 @@
 		<parent link="base_link"/>
 		<child link="rear_left_wheel"/>
 		<!-- physically rotating cylinder & placing it correctly -->
-		<origin xyz="-.296 .218 .17" rpy="-${pi/2} 0 0"/>
+		<origin xyz="-.3 .21 .17" rpy="-${pi/2} 0 0"/>
 		<!-- rotation axis -->
 		<axis xyz="0 0 1"/>
 	</joint>
@@ -94,7 +94,7 @@
 		<parent link="base_link"/>
 		<child link="front_left_wheel"/>
 		<!-- physically rotating cylinder & placing it correctly -->
-		<origin xyz=".296 .218 .17" rpy="-${pi/2} 0 0"/>
+		<origin xyz=".3 .21 .17" rpy="-${pi/2} 0 0"/>
 		<!-- rotation axis -->
 		<axis xyz="0 0 1"/>
 	</joint>
@@ -126,7 +126,7 @@
 		<parent link="base_link"/>
 		<child link="rear_right_wheel"/>
 		<!-- physically rotating cylinder & placing it correctly -->
-		<origin xyz="-.296 -.218 .17" rpy="-${pi/2} 0 0"/>
+		<origin xyz="-.3 -.21 .17" rpy="-${pi/2} 0 0"/>
 		<!-- rotation axis -->
 		<axis xyz="0 0 1"/>
 	</joint>
@@ -158,7 +158,7 @@
 		<parent link="base_link"/>
 		<child link="front_right_wheel"/>
 		<!-- physically rotating cylinder & placing it correctly -->
-		<origin xyz=".296 -.218 .17" rpy="-${pi/2} 0 0"/>
+		<origin xyz=".3 -.21 .17" rpy="-${pi/2} 0 0"/>
 		<!-- rotation axis -->
 		<axis xyz="0 0 1"/>
 	</joint>
@@ -179,6 +179,34 @@
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 		</xacro:inertial_cylinder>
 	</link>
+
+    <joint name="camera_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="camera_frame"/>
+        <origin xyz=".39 0 .36" rpy="0 0 0"/>
+    </joint>
+
+    <link name="camera_frame">
+        <visual>
+            <geometry>
+                <box size="0.1 0.4 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="gps_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="gps_frame"/>
+        <origin xyz=".33 0 1.03" rpy="0 0 0"/>
+    </joint>
+
+    <link name="gps_frame">
+        <visual>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </visual>
+    </link>
 
 	<gazebo reference="front_right_wheel">
 		<material>Gazebo/Blue</material>
