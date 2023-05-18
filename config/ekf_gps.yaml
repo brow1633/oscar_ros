@@ -55,7 +55,7 @@ ekf_filter_node_map:
     base_link_frame: base_link
     world_frame: map
 
-    odom0: odometry/wheel
+    odom0: diff_cont/odom
     odom0_config: [false, false, false,
                   false, false, false,
                   true,  true,  true,
@@ -65,7 +65,7 @@ ekf_filter_node_map:
     odom0_differential: false
     odom0_relative: false
 
-    odom1: odometry/gps
+    odom1: gps
     odom1_config: [true,  true,  false,
                   false, false, false,
                   false, false, false,
@@ -75,7 +75,7 @@ ekf_filter_node_map:
     odom1_differential: false
     odom1_relative: false
 
-    imu0: imu/data
+    imu0: imu
     imu0_config: [false, false, false,
                   false,  false,  true,
                   false, false, false,
@@ -96,8 +96,8 @@ navsat_transform:
   ros__parameters:
     frequency: 30.0
     delay: 3.0
-    magnetic_declination_radians: 0
-    yaw_offset: 0
+    magnetic_declination_radians: 0.0
+    yaw_offset: 0.0
     zero_altitude: false
     broadcast_utm_transform: true
     publish_filtered_gps: true

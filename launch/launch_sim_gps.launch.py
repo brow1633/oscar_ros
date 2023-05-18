@@ -61,20 +61,33 @@ def generate_launch_description():
                 on_start=[joint_broad_spawner],
                 )
             )
-    robot_localization_node = Node(
+    robot_localization_node_odom = Node(
             package='robot_localization',
             executable='ekf_node',
-            name='ekf_filter_node',
+            name='ekf_filter_node_odom',
             output='screen',
-            parameters=[os.path.join(get_package_share_directory(package_name), 'config/ekf.yaml'), {'use_sim_time': True}]
+            parameters=[os.path.join(get_package_share_directory(package_name), 'config/ekf_gps.yaml'), {'use_sim_time': True}]
             )
 
-    delayed_robot_localization_spawner = RegisterEventHandler(
-            event_handler=OnProcessStart(
-                target_action=diff_drive_spawner,
-                on_start=[robot_localization_node],
-                )
+    robot_localization_node_map = Node(
+            package='robot_localization',
+            executable='ekf_node',
+            name='ekf_filter_node_map',
+            output='screen',
+            parameters=[os.path.join(get_package_share_directory(package_name), 'config/ekf_gps.yaml'), {'use_sim_time': True}]
             )
+
+    navsat_transform_node = Node(
+            package='robot_localization',
+            executable='navsat_transform_node',
+            name='navsat_transform',
+            output='screen',
+            parameters=[os.path.join(get_package_share_directory(package_name), 'config/ekf_gps.yaml'), {'use_sim_time': True}],
+            remappings=[('imu/data', 'imu'),
+                        ('gps/fix', 'gps'),
+                        ('odometry/filtered', 'odometry/global')]
+            )
+
 
 
     # Launch them all!
@@ -83,5 +96,7 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
-        delayed_robot_localization_spawner
+        robot_localization_node_odom,
+        robot_localization_node_map,
+        navsat_transform_node
         ])
