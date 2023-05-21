@@ -16,8 +16,8 @@ from launch.event_handlers import OnProcessStart
 
 def generate_launch_description():
     package_name='oscar_ros'
-    subdir = 'sim'
-    sim_time = True
+    subdir = 'real'
+    sim_time = False
 
     rsp = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
@@ -85,12 +85,17 @@ def generate_launch_description():
             name='navsat_transform',
             output='screen',
             parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}],
-            remappings=[('imu/data', 'imu'),
-                        ('gps/fix', 'gps'),
+            remappings=[('imu/data', 'zed2i/zed_node/imu/data'),
                         ('odometry/filtered', 'odometry/global')]
             )
 
-
+    ublox_gps_node = Node(
+	    package='ublox_gps',
+	    executable='ublox_gps_node',
+	    name='ublox_gps_node',
+	    namespace='gps',
+	    parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ardusimple.yaml')]
+	    )
 
     # Launch them all!
     return LaunchDescription([
@@ -100,5 +105,6 @@ def generate_launch_description():
         delayed_joint_broad_spawner,
         robot_localization_node_odom,
         robot_localization_node_map,
-        navsat_transform_node
+        navsat_transform_node,
+	ublox_gps_node
         ])

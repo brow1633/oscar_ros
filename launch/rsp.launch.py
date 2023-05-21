@@ -4,20 +4,20 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch_ros.actions import Node
 
 import xacro
 
-
-def generate_launch_description():
-
+def launch_setup(context, *args, **kwargs):
     # Check if we're told to use sim time
     use_sim_time = LaunchConfiguration('use_sim_time')
+    subdir = LaunchConfiguration('xacro_subdir')
+    subdir_val = subdir.perform(context)
 
     # Process the URDF file
     pkg_path = os.path.join(get_package_share_directory('oscar_ros'))
-    xacro_file = os.path.join(pkg_path,'description','robot.urdf.xacro')
+    xacro_file = os.path.join(pkg_path,'description',subdir_val,'robot.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     
     # Create a robot_state_publisher node
@@ -28,7 +28,10 @@ def generate_launch_description():
         output='screen',
         parameters=[params]
     )
+    return [node_robot_state_publisher]
 
+
+def generate_launch_description():
 
     # Launch!
     return LaunchDescription([
@@ -36,6 +39,9 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use sim time if true'),
-
-        node_robot_state_publisher
+  	DeclareLaunchArgument(
+	    'xacro_subdir',
+ 	    default_value='',
+   	    description='Subdirectory to find Xacro files'),
+	OpaqueFunction(function=launch_setup)
     ])

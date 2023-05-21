@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
 
-	<xacro:include filename="inertial_macros.xacro"/>
+	<xacro:include filename="../inertial_macros.xacro"/>
 
 	<material name="white">
 		<color rgba="1 1 1 1"/>
@@ -179,20 +179,6 @@
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 		</xacro:inertial_cylinder>
 	</link>
-
-    <joint name="camera_joint" type="fixed">
-        <parent link="base_link"/>
-        <child link="camera_frame"/>
-        <origin xyz=".39 0 .36" rpy="0 0 0"/>
-    </joint>
-
-    <link name="camera_frame">
-        <visual>
-            <geometry>
-                <box size="0.1 0.4 0.1"/>
-            </geometry>
-        </visual>
-    </link>
 
     <joint name="gps_joint" type="fixed">
         <parent link="base_link"/>
