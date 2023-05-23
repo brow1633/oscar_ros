@@ -19,6 +19,12 @@ def generate_launch_description():
     subdir = 'sim'
     sim_time = True
 
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[os.path.join(get_package_share_directory(package_name), 'config', subdir, 'twist_mux.yaml'), {'use_sim_time': sim_time}],
+            remappings=[('/cmd_vel_out', '/diff_cont/cmd_vel_unstamped')]
+            )
     rsp = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(package_name),'launch','rsp.launch.py'
@@ -42,6 +48,7 @@ def generate_launch_description():
             package="controller_manager",
             executable="spawner",
             arguments=["diff_cont"],
+            remappings=[('diff_cont/cmd_vel_unstamped', 'cmd_vel')]
             )
 
     delayed_diff_drive_spawner = RegisterEventHandler(
@@ -95,6 +102,7 @@ def generate_launch_description():
     # Launch them all!
     return LaunchDescription([
         rsp,
+        twist_mux,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
