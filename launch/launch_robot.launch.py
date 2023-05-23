@@ -89,13 +89,21 @@ def generate_launch_description():
                         ('odometry/filtered', 'odometry/global')]
             )
 
-    ublox_gps_node = Node(
-	    package='ublox_gps',
-	    executable='ublox_gps_node',
-	    name='ublox_gps_node',
-	    namespace='gps',
-	    parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ardusimple.yaml')]
-	    )
+#    ublox_gps_node = Node(
+#	    package='ublox_gps',
+#	    executable='ublox_gps_node',
+#	    name='ublox_gps_node',
+#	    namespace='gps',
+#	    parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ardusimple.yaml')]
+#	    )
+
+    septentrio_gps_node = Node(
+            package='septentrio_gnss_driver',
+            executable='septentrio_gnss_driver_node',
+            name='septentrio_gnss_driver',
+            emulate_tty=True,
+            sigterm_timeout='20',
+            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'septentrio.yaml')])
 
     # Launch them all!
     return LaunchDescription([
@@ -104,7 +112,7 @@ def generate_launch_description():
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
         robot_localization_node_odom,
-        robot_localization_node_map,
-        navsat_transform_node,
-	ublox_gps_node
+#        robot_localization_node_map,
+#        navsat_transform_node,
+        septentrio_gps_node
         ])

@@ -194,6 +194,20 @@
         </visual>
     </link>
 
+    <joint name="aux1_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="aux1_frame"/>
+        <origin xyz="-.33 0 1.03" rpy="0 0 0"/>
+    </joint>
+
+    <link name="aux1_frame">
+        <visual>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+
 	<gazebo reference="front_right_wheel">
 		<material>Gazebo/Blue</material>
 		<mu1 value="0.1"/>
