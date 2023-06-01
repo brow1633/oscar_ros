@@ -2,8 +2,7 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 
-
-from launch import LaunchDescription
+from launch import LaunchDescription 
 from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
@@ -68,7 +67,8 @@ def generate_launch_description():
             executable='ekf_node',
             name='ekf_filter_node_odom',
             output='screen',
-            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}]
+            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}],
+	    remappings=[('odometry/filtered', 'odometry/local')]
             )
 
     robot_localization_node_map = Node(
@@ -76,8 +76,10 @@ def generate_launch_description():
             executable='ekf_node',
             name='ekf_filter_node_map',
             output='screen',
-            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}]
+            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}],
+	    remappings=[('odometry/filtered', 'odometry/global')]
             )
+    delayed_localization_map = TimerAction(period=3.0, actions=[robot_localization_node_map])
 
     navsat_transform_node = Node(
             package='robot_localization',
@@ -85,7 +87,7 @@ def generate_launch_description():
             name='navsat_transform',
             output='screen',
             parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}],
-            remappings=[('imu/data', 'zed2i/zed_node/imu/data'),
+            remappings=[('imu', 'zed2i/zed_node/imu/data'),
                         ('odometry/filtered', 'odometry/global')]
             )
 
@@ -103,7 +105,8 @@ def generate_launch_description():
             name='septentrio_gnss_driver',
             emulate_tty=True,
             sigterm_timeout='20',
-            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'septentrio.yaml')])
+            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'septentrio.yaml')],
+  	    remappings=[('navsatfix', 'gps/fix')])
 
     # Launch them all!
     return LaunchDescription([
@@ -112,7 +115,8 @@ def generate_launch_description():
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
         robot_localization_node_odom,
-#        robot_localization_node_map,
-#        navsat_transform_node,
+	robot_localization_node_map,
+        navsat_transform_node,
+        #delayed_localization_map,
         septentrio_gps_node
         ])
