@@ -83,7 +83,8 @@ def generate_launch_description():
             executable='ekf_node',
             name='ekf_filter_node_map',
             output='screen',
-            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}]
+            parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}],
+            remappings=[('odometry/filtered', 'odometry/global')]
             )
 
     navsat_transform_node = Node(

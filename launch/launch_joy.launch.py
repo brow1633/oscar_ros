@@ -12,6 +12,6 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([
                 FindPackageShare("teleop_twist_joy"), '/launch/teleop-launch.py'
             ]),
-            launch_arguments={'config_filepath': get_package_share_directory("oscar_ros") + '/config/taranis.config.yaml'}.items(),
+            launch_arguments={'config_filepath': get_package_share_directory("oscar_ros") + '/config/sim/taranis.config.yaml'}.items(),
         ),
         ])
