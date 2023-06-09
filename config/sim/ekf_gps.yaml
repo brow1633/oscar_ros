@@ -36,9 +36,9 @@ ekf_filter_node_odom:
 
     use_control: false
 
-    process_noise_covariance: [1e-3, 1e-3, 1e-3, 0.3, 0.3, 0.01, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
+    #process_noise_covariance: [1e-3, 1e-3, 1e-3, 0.3, 0.3, 0.01, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
 
-    initial_estimate_covariance: [1e-9, 1e-9, 1e-9, 1.0, 1.0, 1e-9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      #initial_estimate_covariance: [1e-9, 1e-9, 1e-9, 1.0, 1.0, 1e-9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
 ekf_filter_node_map:
   ros__parameters:
@@ -88,9 +88,9 @@ ekf_filter_node_map:
 
     use_control: false
 
-    process_noise_covariance: [1e-1, 1e-1, 1e-3, 0.3, 0.3, 1e-2, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
+      #process_noise_covariance: [1e-1, 1e-1, 1e-3, 0.3, 0.3, 1e-2, 0.5, 0.5, 0.1, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]
 
-    initial_estimate_covariance: [1.0, 1.0, 1e-9, 1.0, 1.0, 1e-3, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+      #initial_estimate_covariance: [1.0, 1.0, 1e-9, 1.0, 1.0, 1e-3, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
 
 navsat_transform:
   ros__parameters:
