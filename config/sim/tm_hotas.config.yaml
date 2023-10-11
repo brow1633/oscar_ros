@@ -1,25 +1,16 @@
 teleop_twist_joy_node:
   ros__parameters:
     axis_linear:
-      x: 2
+      x: 1
 
     scale_linear:
-<<<<<<< HEAD
-      x: -3.0
-    
-=======
       x: -1.0
 
->>>>>>> dd7a30e (Changes for complete coverage)
     axis_angular:
-      yaw: 1
+      yaw: 0
 
     scale_angular:
-<<<<<<< HEAD
-      yaw: 5.0
-=======
       yaw: 2.0
->>>>>>> dd7a30e (Changes for complete coverage)
 
     enable_button: 0
     enable_turbo_button: 1

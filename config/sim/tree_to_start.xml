@@ -1,0 +1,28 @@
+<root>
+  <BehaviorTree ID="MainTree">
+    <Sequence name="NavigateWithCoverageAndReplanning">
+
+      <!-- Call CompleteCoverage planner once and store the path as "coverage_path" -->
+      <ComputePathToPose goal="{goal}" path="{coverage_path}" planner_id="CompleteCoverage"/>
+
+      <!-- Get the first point in "coverage_path" -->
+      <GetStartPoint path="{coverage_path}" start_point="{start_point}"/>
+
+      <!-- Call GridBased planner to compute path to start_point and store it as "start_path" -->
+      <ComputePathToPose goal="{start_point}" path="{start_path}" planner_id="GridBased"/>
+
+      <!-- Follow "start_path" with replanning every 1s -->
+      <PipelineSequence name="NavigateToStartPoint">
+        <RateController hz="1">
+          <ComputePathToPose goal="{start_point}" path="{start_path}" planner_id="GridBased"/>
+        </RateController>
+        <FollowPath path="{start_path}" controller_id="FollowPath"/>
+      </PipelineSequence>
+
+      <!-- Follow "coverage_path" -->
+      <FollowPath path="{coverage_path}" controller_id="FollowPath"/>
+
+    </Sequence>
+  </BehaviorTree>
+</root>
+

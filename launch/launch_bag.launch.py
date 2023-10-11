@@ -111,12 +111,7 @@ def generate_launch_description():
     # Launch them all!
     return LaunchDescription([
         rsp,
-        delayed_controller_manager,
-        #delayed_diff_drive_spawner,
-        delayed_joint_broad_spawner,
         robot_localization_node_odom,
-	    robot_localization_node_map,
+        robot_localization_node_map,
         navsat_transform_node,
-        #delayed_localization_map,
-        #septentrio_gps_node
         ])
