@@ -44,7 +44,7 @@ septentrio_gnss_driver:
       delta_u: 0.0
 
     att_offset:
-      heading: -180.0
+      heading: 180.0
       pitch: 0.0
 
     ant_type: "Unknown"
@@ -56,7 +56,7 @@ septentrio_gnss_driver:
       pvt: 100
       rest: 500
 
-    use_gnss_time: true
+    use_gnss_time: false
 
     rtk_settings:
       serial_1:
@@ -70,7 +70,7 @@ septentrio_gnss_driver:
       # For both GNSS and INS Rxs
       navsatfix: true
       gpsfix: true
-      gpgga: false
+      gpgga: true
       gprmc: false
       gpst: false
       measepoch: false
@@ -78,7 +78,7 @@ septentrio_gnss_driver:
       pvtgeodetic: true
       basevectorcart: false
       basevectorgeod: false
-      poscovcartesian: false
+      poscovcartesian: true
       poscovgeodetic: true
       velcovgeodetic: true
       atteuler: true

@@ -26,6 +26,13 @@ def generate_launch_description():
 
     robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
 
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[os.path.join(get_package_share_directory(package_name), 'config', subdir, 'twist_mux.yaml'), {'use_sim_time': sim_time}],
+            remappings=[('/cmd_vel_out', '/diff_cont/cmd_vel_unstamped')]
+            )
+
     controller_params_file = os.path.join(get_package_share_directory(package_name),'config',subdir,'my_controllers.yaml')
 
     controller_manager = Node(
@@ -40,6 +47,7 @@ def generate_launch_description():
     diff_drive_spawner = Node(
             package="controller_manager",
             executable="spawner",
+            output='screen',
             arguments=["diff_cont"],
             )
 
@@ -87,7 +95,7 @@ def generate_launch_description():
             name='navsat_transform',
             output='screen',
             parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'ekf_gps.yaml'), {'use_sim_time': sim_time}],
-            remappings=[('imu', 'zed2i/zed_node/imu/data'),
+            remappings=[('imu', 'gps/pose_as_imu'),
                         ('odometry/filtered', 'odometry/global')]
             )
 
@@ -108,15 +116,28 @@ def generate_launch_description():
             parameters=[os.path.join(get_package_share_directory(package_name),'config',subdir,'septentrio.yaml')],
   	    remappings=[('navsatfix', 'gps/fix')])
 
+    pose_as_imu = Node(
+            package='oscar_ros',
+            executable='pose_to_imu.py',
+            name='pose_as_imu')
+
+    gps_tf_pub = Node(
+            package='oscar_ros',
+            executable='gps_tf_pub.py',
+            name='gps_tf_pub')
+
     # Launch them all!
     return LaunchDescription([
         rsp,
+        twist_mux,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
         robot_localization_node_odom,
-	robot_localization_node_map,
+	    robot_localization_node_map,
         navsat_transform_node,
         #delayed_localization_map,
-        septentrio_gps_node
+        septentrio_gps_node,
+	    pose_as_imu,
+        #gps_tf_pub
         ])
