@@ -26,7 +26,7 @@ septentrio_gnss_driver:
 
     insert_local_frame: false
 
-    get_spatial_config_from_tf: false
+    get_spatial_config_from_tf: true
 
     lock_utm_zone: true
 
@@ -53,7 +53,7 @@ septentrio_gnss_driver:
     ant_aux1_serial_nr: "Unknown"
 
     polling_period:
-      pvt: 100
+      pvt: 50
       rest: 500
 
     use_gnss_time: false

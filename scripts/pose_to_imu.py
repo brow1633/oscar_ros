@@ -19,7 +19,7 @@ class PoseToIMU(Node):
             self.gps_cb,
             10)
         self.publisher = self.create_publisher(Imu, 'gps/pose_as_imu', 10)
-        self.publisher_gps = self.create_publisher(NavSatFix, 'gps/fix', 10)
+        #self.publisher_gps = self.create_publisher(NavSatFix, 'gps/fix', 10)
 
     def listener_callback(self, msg):
         imu_msg = Imu()
