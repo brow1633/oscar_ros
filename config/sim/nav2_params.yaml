@@ -443,6 +443,7 @@ planner_server:
       interpolation_resolution: 0.1
       headlands_width: 1.0
       min_radius: 1.0
+      swath_angle: 0.0
 
 smoother_server:
   ros__parameters:
