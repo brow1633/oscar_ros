@@ -11,6 +11,7 @@ import rclpy
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from tf_transformations import quaternion_from_euler
+import serial
 
 class GpsWaypointPublisher(Node):
     def __init__(self):

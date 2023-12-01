@@ -33,8 +33,14 @@ if(BUILD_TESTING)
 endif()
 
 install(
-  DIRECTORY config description launch worlds scripts
+  DIRECTORY config description launch maps scripts
   DESTINATION share/${PROJECT_NAME}/
+)
+
+install(PROGRAMS
+  scripts/pose_to_imu.py
+  scripts/gps_tf_pub.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()
