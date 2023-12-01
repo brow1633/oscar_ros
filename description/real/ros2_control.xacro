@@ -6,6 +6,10 @@
             <param name="encoder_cpr">16000</param>
             <param name="micro_run_freq">100</param>
             <param name="serial_port">/dev/ttyUSB0</param>
+            <param name="kp">0.1</param>
+            <param name="ki">0.0</param>
+            <param name="kd">0.0</param>
+            <param name="max_integral">0.0</param>
         </hardware>
         <joint name="front_left_wheel_joint">
             <command_interface name="velocity">
@@ -36,7 +40,7 @@
                 <param name="min">-10</param>
                 <param name="max">10</param>
             </command_interface>
-            <state_interface name="position"/> 
+            <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
     </ros2_control>

@@ -1,0 +1,7 @@
+# Define waypoints
+# wp: [lat, long, heading] where heading is 0-referenced to East
+waypoints:
+  wp1: [40.471082, -87.013507, 180]
+  wp2: [40.471082, -87.013517, 270]
+  wp3: [40.471072, -87.013517, 0.0]
+  wp4: [40.471072, -87.013507, 90.0]
