@@ -141,6 +141,7 @@ def generate_launch_description():
                 get_package_share_directory('nav2_bringup'),'launch','bringup_launch.py')]),
                 launch_arguments={'params_file': os.path.join(get_package_share_directory(package_name),'config','sim','nav2_params.yaml'),
                     'map': os.path.join(get_package_share_directory(package_name),'maps','map_with_loop.yaml')}.items())
+
     print(os.path.join(get_package_share_directory(package_name),'config','sim','nav2_params.yaml'))
 
     # Launch them all!
